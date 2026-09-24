@@ -1,167 +1,101 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BAJI GENERATOR CV</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAJI CV PRO - OVERLORD</title>
 <style>
-:root{--noir:#0a0a0a;--gris:#1e1e1e;--gris2:#2a2a2a;--blanc:#f5f5f0;--accent:#ffffff}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-body{background:var(--noir);color:var(--blanc);overflow-x:hidden}
-/* INTRO */
-#intro{position:fixed;inset:0;background:var(--noir);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:1s}
-#particles{position:absolute;inset:0}
-.glitch{font-family:'Orbitron';font-size:clamp(30px,8vw,90px);font-weight:900;letter-spacing:5px;position:relative;color:var(--blanc);text-transform:uppercase}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0}
-.glitch::before{animation:glitch1 1s infinite;color:#fff;clip-path:polygon(0 0,100% 33%,100% 33%,0 33%)}
-.glitch::after{animation:glitch2 1s infinite;color:#888;clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%)}
-@keyframes glitch1{0%{transform:translate(0)}20%{transform:translate(-3px,2px)}40%{transform:translate(-3px,-2px)}60%{transform:translate(3px,2px)}80%{transform:translate(3px,-2px)}100%{transform:translate(0)}}
-@keyframes glitch2{0%{transform:translate(0)}20%{transform:translate(3px,-1px)}40%{transform:translate(-2px,2px)}60%{transform:translate(2px,-2px)}80%{transform:translate(-2px,1px)}100%{transform:translate(0)}}
-.loading-bar{width:300px;height:2px;background:var(--gris2);margin-top:30px;overflow:hidden}
-.loading-fill{height:100%;width:0;background:var(--blanc);animation:load 2.5s forwards}
-@keyframes load{to{width:100%}}
-/* APP */
-.app{display:none;min-height:100vh}
-.app.active{display:flex}
-.left{width:420px;background:var(--gris);padding:25px;border-right:1px solid #333;overflow-y:auto;height:100vh;position:sticky;top:0}
-.right{flex:1;background:#121212;padding:30px}
-h2{font-size:13px;letter-spacing:2px;color:#888;margin:22px 0 10px;text-transform:uppercase}
-input,textarea,select{width:100%;padding:13px;margin:5px 0;border-radius:12px;background:var(--gris2);border:1px solid #333;color:var(--blanc);outline:none}
-input:focus,textarea:focus,select:focus{border-color:var(--blanc)}
-.row{display:flex;gap:10px}
-.btn{width:100%;padding:15px;border:none;border-radius:12px;font-weight:800;cursor:pointer;margin-top:12px;font-size:14px;letter-spacing:1px}
-.btn-white{background:var(--blanc);color:black}
-.btn-outline{background:transparent;border:1px solid #444;color:var(--blanc)}
-.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.lang{padding:10px;border:1px solid #333;border-radius:10px;text-align:center;cursor:pointer;font-size:13px;background:var(--gris2)}
-.lang.active{background:var(--blanc);color:black;border-color:var(--blanc)}
-/* CV PREVIEW */
-.doc{width:800px;max-width:100%;background:var(--blanc);color:#111;padding:45px;margin:0 auto 30px;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
-.doc h3{font-family:'Orbitron';font-size:13px;letter-spacing:2px;border-bottom:2px solid #111;padding-bottom:6px;margin:25px 0 12px}
-.badge{display:inline-block;background:#111;color:var(--blanc);padding:6px 12px;border-radius:20px;font-size:12px;margin:4px}
-.paywall{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(10px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
-.paywall.show{display:flex}
-.paybox{background:var(--gris);border:1px solid #333;border-radius:20px;padding:30px;max-width:400px;width:100%;text-align:center}
-.price{font-family:'Orbitron';font-size:42px;margin:10px 0}
-.mpesabox{background:var(--noir);padding:15px;border-radius:12px;margin:15px 0;text-align:left;font-size:14px;line-height:1.6}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#111;color:#fff;padding:15px}
+.container{max-width:600px;margin:auto}
+h1{text-align:center;margin:15px 0;color:#00ff88}
+.card{background:#222;padding:15px;border-radius:12px;margin-bottom:15px;border:1px solid #333}
+input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:none;background:#333;color:#fff}
+label{font-size:13px;color:#aaa;margin-top:8px;display:block}
+button{width:100%;padding:15px;background:#00ff88;color:#000;font-weight:bold;border:none;border-radius:10px;margin-top:10px;font-size:16px}
+.output{display:none;background:#fff;color:#000;padding:15px;border-radius:10px;margin-top:20px}
+.output h2{border-bottom:2px solid #000;padding-bottom:5px;margin:15px 0 10px}
+.badge{display:inline-block;background:#000;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;margin:2px}
+@media print{body *{visibility:hidden}.output,.output *{visibility:visible}.output{position:absolute;left:0;top:0;width:100%}}
 </style>
 </head>
 <body>
+<div class="container">
+<h1>⚡ BAJI CV PRO</h1>
 
-<div id="intro">
-<canvas id="particles"></canvas>
-<div class="glitch" data-text="BAJI 😉 GENERATOR 🤖CV">BAJI 😉 GENERATOR 🤖CV</div>
-<p style="margin-top:15px;letter-spacing:4px;color:#666;font-size:12px">OVERLORD-OF-DEATH EDITION</p>
-<div class="loading-bar"><div class="loading-fill"></div></div>
+<div class="card">
+<label>Nom complet</label>
+<input id="nom" value="KILIAN BAJI">
+<label>Poste visé</label>
+<input id="poste" value="Développeur">
+<label>Ville</label>
+<input id="ville" value="Kinshasa">
+<label>Téléphone</label>
+<input id="tel" value="+243 82XXXXX">
+<label>Email</label>
+<input id="email" value="baji@email.com">
+<label>Formation</label>
+<input id="formation" value="2023 - UNIKIN - Informatique">
+<label>Compétences (séparées par virgule)</label>
+<input id="skills" value="HTML,CSS,JavaScript,Python">
+<label>Parcours / Expérience</label>
+<textarea id="parcours">Rgcb - Passionné par le code et la cybersécurité</textarea>
+<button onclick="generer()">🔥 GÉNÉRER MON CV + LETTRES</button>
 </div>
 
-<div class="app" id="app">
-<div class="left">
-<h1 style="font-family:'Orbitron';font-size:20px">BAJI GENERATOR</h1>
-<p style="color:#666;font-size:12px">NOIR • GRIS • BLANC PALE</p>
-
-<h2>👤 Identité</h2>
-<div class="row"><input id="nom" placeholder="Nom complet" oninput="gen()"><input id="age" placeholder="Âge" type="number" oninput="gen()"></div>
-<input id="prof" placeholder="Profession ex: Développeur" oninput="gen()">
-<div class="row"><input id="tel" placeholder="Tel M-Pesa" oninput="gen()"><input id="email" placeholder="Email" oninput="gen()"></div>
-<input id="addr" placeholder="Adresse Kinshasa" oninput="gen()">
-
-<h2>💼 Profil</h2>
-<textarea id="profil" rows="3" placeholder="Qui es-tu en 3 lignes?" oninput="gen()"></textarea>
-<textarea id="exp" rows="5" placeholder="Expériences: 2024 - Vodacom -..." oninput="gen()"></textarea>
-<textarea id="form" rows="3" placeholder="Formations: 2023 UNIKIN..." oninput="gen()"></textarea>
-<input id="skills" placeholder="Compétences séparées par," oninput="gen()">
-
-<h2>🌍 Langue de sortie</h2>
-<div class="lang-grid" id="langs"></div>
-
-<h2>💳 Action</h2>
-<button class="btn btn-white" onclick="openPay()">🔒 DÉBLOQUER & TÉLÉCHARGER - 3500 FC</button>
-<button class="btn btn-outline" onclick="gen()">👁️ ACTUALISER APERÇU</button>
-</div>
-
-<div class="right">
-<div id="cv" class="doc"></div>
-<div id="lm1" class="doc"></div>
-<div id="lm2" class="doc"></div>
-</div>
-</div>
-
-<div class="paywall" id="paywall">
-<div class="paybox">
-<h2 style="color:#00ff88;margin:0">PAIEMENT M-PESA</h2>
-<div class="price">3500 FC</div>
-<div class="mpesabox">
-<b>1.</b> Va sur M-Pesa<br>
-<b>2.</b> Envoie <b>3500 FC</b> à :<br>
-<span style="font-size:18px;color:#00ff88;font-weight:bold">082XXXXXXX - KILIAN BAJI</span><br>
-<b>3.</b> Entre le code transaction ci-dessous
-</div>
-<input id="mpesaCode" placeholder="Ex: MP230924.1234.A12345">
-<button class="btn btn-white" onclick="verifyPay()">✅ J'AI PAYÉ, DÉBLOQUER</button>
-<button class="btn btn-outline" onclick="closePay()">Retour</button>
-<p style="font-size:11px;color:#666;margin-top:10px">Démo: tape 1234 pour tester sans payer</p>
-</div>
+<div id="result" class="output"></div>
 </div>
 
 <script>
-const LANGS = [
-{code:'fr',name:'🇫🇷 Français'},{code:'en',name:'🇬🇧 English'},{code:'es',name:'🇪🇸 Español'},{code:'zh',name:'🇨🇳 Mandarin'},{code:'ln',name:'🇨🇩 Lingala'},{code:'sw',name:'🇹🇿 Swahili'},{code:'pt',name:'🇵🇹 Português'},{code:'ar',name:'🇸🇦 العربية'},{code:'de',name:'🇩🇪 Deutsch'},{code:'ru',name:'🇷🇺 Русский'}
-];
-let currentLang='fr'; let unlocked=false;
-const T = {
-fr:{profil:"PROFIL",exp:"EXPÉRIENCES",form:"FORMATIONS",skills:"COMPÉTENCES",age:"Âge",motivation:"LETTRE DE MOTIVATION",obj:"Objet: Candidature au poste de",madame:"Madame, Monsieur,",p1:"Passionné(e) par le domaine de",p2:"Mon expérience et ma motivation font de moi un candidat idéal pour rejoindre votre équipe."},
-en:{profil:"PROFILE",exp:"EXPERIENCE",form:"EDUCATION",skills:"SKILLS",age:"Age",motivation:"COVER LETTER",obj:"Subject: Application for",madame:"Dear Hiring Manager,",p1:"Passionate about",p2:"My experience and motivation make me an ideal candidate."},
-es:{profil:"PERFIL",exp:"EXPERIENCIA",form:"FORMACIÓN",skills:"HABILIDADES",age:"Edad",motivation:"CARTA DE MOTIVACIÓN",obj:"Asunto: Candidatura para",madame:"Estimado/a Señor/a,",p1:"Apasionado por",p2:"Mi experiencia me hace un candidato ideal."},
-zh:{profil:"个人简介",exp:"工作经验",form:"教育背景",skills:"技能",age:"年龄",motivation:"求职信",obj:"主题: 申请职位",madame:"尊敬的招聘经理,",p1:"热衷于",p2:"我的经验使我成为理想人选。"},
-ln:{profil:"NAYEBI",exp:"MISALA",form:"MATEYA",skills:"MAYELE",age:"Mibu",motivation:"MOKANDA YA MOTEMA",obj:"Likambo: Kosenga mosala ya",madame:"Mama, Tata,",p1:"Nalingaka mingi",p2:"Boyebi na ngai ekosalisa mingi."},
-sw:{profil:"WASIFU",exp:"UZOEFU",form:"ELIMU",skills:"UJUZI",age:"Umri",motivation:"BARUA YA MAOMBI",obj:"Kuhusu: Kuomba kazi ya",madame:"Mpendwa Meneja,",p1:"Ninapenda sana",p2:"Uzoefu wangu utanifanya mgombea bora."},
-pt:{profil:"PERFIL",exp:"EXPERIÊNCIA",form:"FORMAÇÃO",skills:"HABILIDADES",age:"Idade",motivation:"CARTA DE MOTIVAÇÃO",obj:"Assunto: Candidatura para",madame:"Prezado(a) Gestor(a),",p1:"Apaixonado por",p2:"Minha experiência me torna ideal."},
-ar:{profil:"الملف",exp:"الخبرات",form:"التعليم",skills:"المهارات",age:"العمر",motivation:"خطاب تحفيزي",obj:"الموضوع: طلب وظيفة",madame:"السيد المدير المحترم،",p1:"شغوف بـ",p2:"خبرتي تجعلني مرشحا مثاليا."},
-de:{profil:"PROFIL",exp:"ERFAHRUNG",form:"AUSBILDUNG",skills:"FÄHIGKEITEN",age:"Alter",motivation:"ANSCHREIBEN",obj:"Betreff: Bewerbung als",madame:"Sehr geehrte Damen und Herren,",p1:"Leidenschaftlich für",p2:"Meine Erfahrung macht mich zum idealen Kandidaten."},
-ru:{profil:"ПРОФИЛЬ",exp:"ОПЫТ",form:"ОБРАЗОВАНИЕ",skills:"НАВЫКИ",age:"Возраст",motivation:"МОТИВАЦИОННОЕ ПИСЬМО",obj:"Тема: Заявка на",madame:"Уважаемый менеджер,",p1:"Увлечен",p2:"Мой опыт делает меня идеальным кандидатом."}
-};
+function generer(){
+let n=document.getElementById('nom').value;
+let p=document.getElementById('poste').value;
+let v=document.getElementById('ville').value;
+let t=document.getElementById('tel').value;
+let e=document.getElementById('email').value;
+let f=document.getElementById('formation').value;
+let s=document.getElementById('skills').value.split(',');
+let pa=document.getElementById('parcours').value;
 
-function initLangs(){
-const c=document.getElementById('langs');
-LANGS.forEach(l=>{
-const d=document.createElement('div');d.className='lang'+(l.code===currentLang?' active':'');d.innerText=l.name;
-d.onclick=()=>{currentLang=l.code;document.querySelectorAll('.lang').forEach(x=>x.classList.remove('active'));d.classList.add('active');gen()};
-c.appendChild(d);
-});
-}
-// INTRO PARTICLES
-const canvas=document.getElementById('particles');const ctx=canvas.getContext('2d');
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();window.onresize=resize;
-let pts=[];for(let i=0;i<80;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-0.5),vy:(Math.random()-0.5)});
-function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.fillStyle='rgba(255,255,255,0.3)';ctx.fillRect(p.x,p.y,1,1)});requestAnimationFrame(anim)}anim();
-setTimeout(()=>{document.getElementById('intro').style.transform='translateY(-100%)';document.getElementById('app').classList.add('active');gen()},2600);
+let badges=s.map(x=>`<span class="badge">${x.trim()}</span>`).join('');
 
-function getVal(id){return document.getElementById(id).value||''}
+document.getElementById('result').innerHTML=`
+<h2>${n} - ${p}</h2>
+<p><b>Ville:</b> ${v} | <b>Tel:</b> ${t} | <b>Email:</b> ${e}</p>
 
-function gen(){
-const tr=T[currentLang]||T.fr;
-const nom=getVal('nom')||'KILIAN BAJI';const prof=getVal('prof')||'Développeur';const age=getVal('age')||'22';const tel=getVal('tel')||'+243 82XXXX';const email=getVal('email')||'baji@email.com';const addr=getVal('addr')||'Kinshasa';const profil=getVal('profil')||'Passionné et motivé, prêt à apporter mes compétences.';const exp=getVal('exp')||'2024 - Projet BAJI GENERATOR\nCréation app web';const form=getVal('form')||'2023 - UNIKIN - Informatique';const skills=(getVal('skills')||'HTML, CSS, JavaScript, Python').split(',').map(s=>`<span class="badge">${s.trim()}</span>`).join('');
-document.getElementById('cv').innerHTML=`<div style="display:flex;justify-content:space-between"><div><div style="font-family:Orbitron;font-size:32px;font-weight:900">${nom}</div><div style="color:#666;font-weight:bold">${prof} | ${tr.age}: ${age}</div><div style="font-size:13px;margin-top:8px">${tel} | ${email}<br>${addr}</div></div><div style="width:90px;height:90px;background:#111;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Orbitron;font-size:30px">${nom[0]||'B'}</div></div><h3>${tr.profil}</h3><p style="font-size:14px;line-height:1.5">${profil}</p><h3>${tr.exp}</h3><p style="white-space:pre-line;font-size:14px">${exp}</p><h3>${tr.form}</h3><p style="white-space:pre-line;font-size:14px">${form}</p><h3>${tr.skills}</h3><div>${skills}</div>`;
-document.getElementById('lm1').innerHTML=`<h3>${tr.motivation} 1 - CLASSIQUE</h3><p style="font-size:13px"><b>${tr.obj} ${prof}</b><br><br>${tr.madame}<br><br>${tr.p1} ${prof}, je souhaite vous soumettre ma candidature.<br><br>${profil}<br><br>${tr.p2}<br><br>Mon parcours: ${exp.split('\n')[0]}<br><br>Disponible à ${addr}, joignable au ${tel}.<br><br>Veuillez agréer l'expression de mes salutations distinguées.<br><br><b>${nom}</b></p>`;
-document.getElementById('lm2').innerHTML=`<h3>${tr.motivation} 2 - MODERNE & PERCUTANTE</h3><div style="border-left:4px solid #111;padding-left:15px"><p style="font-family:Orbitron;font-weight:900">POURQUOI MOI?</p><p style="font-size:13px;margin-top:10px">Je ne cherche pas juste un emploi. Je veux transformer votre vision en résultats.<br><br>💡 <b>Expertise:</b> ${prof} avec ${age} ans d'énergie<br>🚀 <b>Preuve:</b> ${exp.split('\n')[0]}<br>🌍 <b>Langues:</b> ${currentLang.toUpperCase()} + 9 autres<br><br>${tr.p2}<br><br>Contact direct: ${tel} / ${email}<br><br><b>${nom} - OVERLORD</b></p></div>`;
-}
+<h2>FORMATIONS</h2>
+<p>${f}</p>
 
-function openPay(){document.getElementById('paywall').classList.add('show')}
-function closePay(){document.getElementById('paywall').classList.remove('show')}
-function verifyPay(){
-const code=document.getElementById('mpesaCode').value;
-if(code==='1234' || code.length>6){unlocked=true;closePay();downloadAll()}else{alert('Code M-Pesa invalide. Envoie 3500FC au 082XXXXXXX ou tape 1234 pour test')}
+<h2>COMPÉTENCES</h2>
+<p>${badges}</p>
+
+<h2>LETTRE DE MOTIVATION 1 - CLASSIQUE</h2>
+<p><b>Objet: Candidature au poste de ${p}</b></p><br>
+<p>Madame, Monsieur,</p><br>
+<p>Passionné(e) par le domaine de ${p}, je souhaite vous soumettre ma candidature.</p><br>
+<p>${pa}</p><br>
+<p>Mon expérience et ma motivation font de moi un candidat idéal pour rejoindre votre équipe.</p><br>
+<p>Disponible à ${v}, joignable au ${t}.</p><br>
+<p>Veuillez agréer l'expression de mes salutations distinguées.</p><br>
+<p><b>${n}</b></p>
+
+<h2>LETTRE DE MOTIVATION 2 - MODERNE & PERCUTANTE</h2>
+<p style="border-left:3px solid #000;padding-left:10px">
+<b>POURQUOI MOI?</b><br>
+Je ne cherche pas juste un emploi. Je veux transformer votre vision en résultats.<br><br>
+<b>Expertise:</b> ${p} avec énergie<br>
+<b>Preuve:</b> ${pa}<br>
+<b>Langues:</b> FR + EN<br><br>
+Mon expérience et ma motivation font de moi un candidat idéal pour rejoindre votre équipe.<br><br>
+Contact direct: ${t} / ${e}<br><br>
+<b>${n} - OVERLORD</b>
+</p>
+<br><br>
+<button onclick="window.print()" style="background:#000;color:#fff">📄 IMPRIMER / SAUVER EN PDF</button>
+`;
+document.getElementById('result').style.display='block';
+window.scrollTo(0,document.body.scrollHeight);
 }
-function downloadAll(){
-if(!unlocked){openPay();return}
-const name=getVal('nom')||'BAJI';
-html2pdf().from(document.getElementById('cv')).save(`CV_${name}_${currentLang}.pdf`);
-setTimeout(()=>{html2pdf().from(document.getElementById('lm1')).save(`Lettre1_${name}.pdf`)},800);
-setTimeout(()=>{html2pdf().from(document.getElementById('lm2')).save(`Lettre2_${name}.pdf`)},1600);
-}
-initLangs();
 </script>
 </body>
 </html>
